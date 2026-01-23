@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/api_documentation/models/get_products_list.dart';
 
 import '../api_services/api_services.dart';
 import '../models/user_response.dart';
@@ -12,6 +13,7 @@ class ViewGetApiScreen extends StatefulWidget {
 
 class _ViewGetApiScreenState extends State<ViewGetApiScreen> {
   List<UserResponse> userList = [];
+  List<ProductListResponse> productList = [];
   bool isLoading = false;
 
   void getUserList() async {
@@ -19,10 +21,7 @@ class _ViewGetApiScreenState extends State<ViewGetApiScreen> {
       isLoading = true;
     });
     try {
-      final response = await ApiServices().getUserList();
-      setState(() {
-        userList = response;
-      });
+      userList = await ApiServices().getUserList();
       setState(() {
         isLoading = false;
       });
@@ -35,9 +34,29 @@ class _ViewGetApiScreenState extends State<ViewGetApiScreen> {
     }
   }
 
+  void getProductList() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var productList = (await ApiServices().getProductList());
+      setState(() {
+        isLoading = false;
+        this.productList = productList;
+      });
+    } catch (e) {
+      debugPrint("Error: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
-    getUserList();
+    //getUserList();
+    getProductList();
     super.initState();
   }
 
@@ -49,15 +68,28 @@ class _ViewGetApiScreenState extends State<ViewGetApiScreen> {
         title: const Text("Get Api Integration"),
         centerTitle: true,
       ),
-      body: Visibility(
+      /* body: Visibility(
         visible: isLoading == false,
         replacement: Center(child: CircularProgressIndicator()),
         child: ListView.builder(
           itemCount: userList.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(userList[index].name!),
+              title: Text(userList[index].name!.toString()),
               subtitle: Text(userList[index].role!),
+            );
+          },
+        ),
+      ),*/
+      body: Visibility(
+        visible: isLoading == false,
+        replacement: Center(child: CircularProgressIndicator()),
+        child: ListView.builder(
+          itemCount: productList.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(productList[index].price!.toString()),
+              subtitle: Text(productList[index].title!),
             );
           },
         ),
