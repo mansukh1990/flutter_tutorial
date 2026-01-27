@@ -20,9 +20,7 @@ class _ViewPostApiState extends State<ViewPostApi> {
   final passwordController = TextEditingController();
   final avatarController = TextEditingController();
 
-  UiState uiState = UiState.empty;
   bool isLoading = false;
-  String errorMessage = "";
 
   CreateUserResponse? userNewRequest;
 

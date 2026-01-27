@@ -117,3 +117,11 @@ class AppValidator {
         uri.host.isNotEmpty;
   }
 }
+
+class Resource<T> {
+  final bool success;
+  final String message;
+  final T? data;
+
+  Resource({required this.success, required this.message, this.data});
+}

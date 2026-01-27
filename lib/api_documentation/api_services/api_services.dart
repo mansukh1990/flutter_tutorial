@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tutorial/api_documentation/models/request/user_request.dart';
+import 'package:flutter_tutorial/flutter_documentation/widgets_common/util.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/request/user_update_request.dart';
 import '../models/response/get_products_list.dart';
 import '../models/response/user_list.dart';
 import '../models/response/user_response.dart';
@@ -90,5 +92,75 @@ class ApiServices {
       print("🔥 API EXCEPTION: $e");
       rethrow;
     }
+  }
+
+  Future<Resource<Map<String, dynamic>>> updateUser(
+    UpdateUserRequest updateUserRequest,
+    String userId,
+  ) async {
+    final url = "https://api.escuelajs.co/api/v1/users/$userId";
+
+    try {
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(updateUserRequest.toJson()),
+      );
+
+      final responseData = jsonDecode(response.body);
+      print("📥 URl: $url");
+      print("📥 STATUS CODE: ${response.statusCode}");
+      print("📥 RESPONSE BODY: ${response.body}");
+
+      // ✅ SUCCESS
+      if (response.statusCode == 200) {
+        return Resource(
+          success: true,
+          message: "User updated successfully",
+          data: responseData,
+        );
+      }
+
+      // ❌ ERROR MESSAGE FROM API
+      String errorMessage = "Something went wrong";
+
+      if (responseData is Map && responseData["message"] != null) {
+        if (responseData["message"] is List) {
+          errorMessage = responseData["message"].join(", ");
+        } else {
+          errorMessage = responseData["message"].toString();
+        }
+      }
+
+      return Resource(success: false, message: errorMessage);
+    } catch (e) {
+      print("🔥 API EXCEPTION: $e");
+      return Resource(success: false, message: "Network error");
+    }
+  }
+
+  Future<Resource<bool>?> delete(String userId) async {
+    try {
+      final url = "https://api.escuelajs.co/api/v1/products/$userId";
+      final response = await http.delete(Uri.parse(url));
+      print("📥 URl: $url");
+      print("📥 STATUS CODE: ${response.statusCode}");
+      print("📥 RESPONSE BODY: ${response.body}");
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return Resource(
+          success: true,
+          message: "User Delete successfully",
+          data: data,
+        );
+      } else {
+        return Resource(success: false, message: response.body);
+      }
+    } catch (e) {
+      print(e);
+      return Resource(success: false, message: e.toString());
+    }
+    return null;
   }
 }
