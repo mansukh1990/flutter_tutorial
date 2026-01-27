@@ -99,10 +99,12 @@ class _ViewPostApiState extends State<ViewPostApi> {
     );
     try {
       userNewRequest = await ApiServices().createUser(userRequest);
+
+      if (!mounted) return;
+
       setState(() {
         isLoading = false;
       });
-
       AppSnackBar.success(context, "User created successfully");
     } catch (e) {
       setState(() {
@@ -110,6 +112,8 @@ class _ViewPostApiState extends State<ViewPostApi> {
       });
       AppSnackBar.error(context, "User creation failed");
     }
+
+    if (!mounted) return;
 
     nameController.clear();
     emailController.clear();
@@ -136,13 +140,11 @@ class _ViewPostApiState extends State<ViewPostApi> {
     final password = passwordController.text.trim();
     final avatar = avatarController.text.trim();
 
-    // NAME
     if (AppValidator.isEmpty(name)) {
       AppSnackBar.error(context, "Name should not be empty");
       return false;
     }
 
-    // EMAIL
     if (AppValidator.isEmpty(email)) {
       AppSnackBar.error(context, "Email should not be empty");
       return false;
@@ -153,7 +155,6 @@ class _ViewPostApiState extends State<ViewPostApi> {
       return false;
     }
 
-    // PASSWORD
     if (AppValidator.isEmpty(password)) {
       AppSnackBar.error(context, "Password should not be empty");
       return false;
@@ -175,7 +176,6 @@ class _ViewPostApiState extends State<ViewPostApi> {
       return false;
     }
 
-    // AVATAR
     if (AppValidator.isEmpty(avatar)) {
       AppSnackBar.error(context, "Avatar should not be empty");
       return false;
