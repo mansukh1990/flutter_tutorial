@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/api_documentation/models/get_products_list.dart';
+import 'package:flutter_tutorial/api_documentation/models/response/get_products_list.dart';
 
 import '../api_services/api_services.dart';
-import '../models/user_response.dart';
+import '../models/response/user_response.dart';
 
 class ViewGetApiScreen extends StatefulWidget {
   const ViewGetApiScreen({super.key});

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'common_toast.dart';
+import 'package:flutter_tutorial/flutter_documentation/widgets_common/util.dart';
 
 void main() {
   runApp(ToastMessageApp());
@@ -22,7 +21,7 @@ class ToastMessageApp extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
             onPressed: () {
-              showToast("Flutter toast");
+              AppToast.toast("Flutter toast");
             },
             child: Text("Show Toast"),
           ),

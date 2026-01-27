@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_tutorial/api_documentation/models/request/user_request.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/get_products_list.dart';
-import '../models/user_response.dart';
+import '../models/response/get_products_list.dart';
+import '../models/response/user_list.dart';
+import '../models/response/user_response.dart';
 
 class ApiServices {
   Future<List<UserResponse>> getUserList() async {
@@ -44,5 +46,49 @@ class ApiServices {
       print(e.toString());
     }
     return [];
+  }
+
+  Future<dynamic> getMultiDataWithOutModel() async {
+    try {
+      var response = await http.get(
+        Uri.parse("https://api.escuelajs.co/api/v1/products"),
+      );
+      if (response.statusCode == 200) {
+        final model = jsonDecode(response.body);
+        return model;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
+  Future<CreateUserResponse?> createUser(UserRequest userRequest) async {
+    const url = "https://api.escuelajs.co/api/v1/users/";
+    try {
+      print("🚀 API CALL STARTED");
+      print("📤 URL: $url");
+      print("📤 BODY: $userRequest");
+
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(userRequest.toJson()),
+      );
+
+      print("📥 STATUS CODE: ${response.statusCode}");
+      print("📥 RESPONSE BODY: ${response.body}");
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        print("✅ USER CREATED SUCCESSFULLY");
+        return CreateUserResponse.fromJson(jsonDecode(response.body));
+      } else {
+        final error = jsonDecode(response.body);
+        throw Exception(error["message"].toString());
+      }
+    } catch (e) {
+      print("🔥 API EXCEPTION: $e");
+      rethrow;
+    }
   }
 }

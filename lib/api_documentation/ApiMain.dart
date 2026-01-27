@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/api_documentation/get_api/get_api_screen.dart';
+import 'package:flutter_tutorial/api_documentation/post_api/view_post_api.dart';
 
 void main() {
   runApp(const ApiApp());
@@ -17,7 +17,7 @@ class ApiApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ViewGetApiScreen(),
+      home: const ViewPostApi(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/flutter_documentation/widgets_common/util.dart';
 
-import '../flutter_widget/toast_message/common_toast.dart';
 import 'network_connectivity.dart';
 
 class NetworkConnectivityPage extends StatelessWidget {
@@ -21,11 +21,11 @@ class NetworkConnectivityPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             if (await NetworkUtil.isNetworkAvailable()) {
-              showToast("Network is available");
+              AppToast.toast("Network is available");
               print("Network is available");
             } else {
               print("Network is not available");
-              showToast("Network is not available");
+              AppToast.toast("Network is not available");
             }
           },
           child: Text("Check Net"),
