@@ -155,7 +155,7 @@ class _ViewPutPatchState extends State<ViewPutPatch> {
 
   void deleteData() async {
     try {
-      final result = await ApiServices().delete('161');
+      final result = await ApiServices().delete('239');
       print('DATA:$result');
       if (!mounted) return;
       setState(() {

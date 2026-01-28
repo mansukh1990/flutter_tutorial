@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tutorial/api_documentation/models/request/user_request.dart';
+import 'package:flutter_tutorial/api_documentation/models/response/upload_media_response.dart';
 import 'package:flutter_tutorial/flutter_documentation/widgets_common/util.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import '../models/request/user_update_request.dart';
 import '../models/response/get_products_list.dart';
@@ -160,6 +163,36 @@ class ApiServices {
     } catch (e) {
       print(e);
       return Resource(success: false, message: e.toString());
+    }
+  }
+
+  Future<UploadMediaResponse?> uploadMedia(File file) async {
+    try {
+      final url = 'https://api.escuelajs.co/api/v1/files/upload';
+      var request = http.MultipartRequest("POST", Uri.parse(url));
+      request.headers.addAll({"Content-Type": "multipart/form-data"});
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'file',
+          file.path,
+          filename: file.path.toString().split('/').last,
+        ),
+      );
+      StreamedResponse streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      print("📥 URl: $url");
+      print("📥 STATUS CODE: ${response.statusCode}");
+      print("📥 RESPONSE BODY: ${response.body}");
+
+      if (response.statusCode == 201) {
+        UploadMediaResponse uploadMediaResponse = UploadMediaResponse.fromJson(
+          jsonDecode(response.body),
+        );
+        return uploadMediaResponse;
+      }
+    } catch (e) {
+      print(e);
     }
     return null;
   }
