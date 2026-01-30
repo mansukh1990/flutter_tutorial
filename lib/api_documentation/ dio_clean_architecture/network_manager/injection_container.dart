@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/utils/print_value.dart';
 
@@ -9,19 +7,22 @@ Dio getDio() {
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (RequestOptions options, handler) {
-        printValue(tag: 'API URL:', '${options.uri}');
-        printValue(tag: 'HEADER:', options.headers);
-        printValue(tag: 'REQUEST BODY:', jsonEncode(options.data));
-        return handler.next(options);
+        printValue(options.uri.toString(), tag: 'API URL');
+        printValue(options.headers, tag: "HEADERS");
+        printValue(options.data, tag: 'REQUEST BODY:');
+        handler.next(options);
       },
       onResponse: (Response response, ResponseInterceptorHandler handler) {
-        printValue(tag: 'API RESPONSE:', response.data);
-        return handler.next(response.data);
+        printValue("STATUS CODE: ${response.statusCode}");
+        printValue("STATUS MESSAGE: ${response.statusMessage}");
+        printValue(response.data, tag: 'API RESPONSE:');
+        handler.next(response);
       },
       onError: (DioException e, handler) {
-        printValue(tag: 'STATUS CODE:', '${e.response?.statusCode ?? ""}');
-        printValue(tag: 'ERROR DATA:', e.response?.data ?? "");
-        return handler.next(e);
+        printValue("STATUS CODE: ${e.response?.statusCode}");
+        printValue("STATUS MESSAGE: ${e.response?.statusMessage}");
+        printValue(e.response?.data, tag: 'ERROR DATA:');
+        handler.next(e);
       },
     ),
   );

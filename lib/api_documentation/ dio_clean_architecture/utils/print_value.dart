@@ -5,17 +5,16 @@ import 'package:flutter/foundation.dart';
 
 void printValue(dynamic value, {String tag = ""}) {
   try {
-    var decodedJson = json.decode(value.toString()) as Map<String, dynamic>;
-    log(
-      "JSON OUTPUT :$tag ${JsonEncoder.withIndent('  ').convert(decodedJson)}\n",
-    );
+    if (value is Map || value is List) {
+      log("$tag\n${JsonEncoder.withIndent('  ').convert(value)}\n");
+      return;
+    }
+
+    final decoded = json.decode(value.toString());
+    log("$tag\n${JsonEncoder.withIndent('  ').convert(decoded)}\n");
   } catch (_) {
-    if (value is Map) {
-      log("JSON OUTPUT :$tag ${JsonEncoder.withIndent('  ').convert(value)}\n");
-    } else {
-      if (kDebugMode) {
-        print("PRINT OUTPUT : $tag $value\n\n");
-      }
+    if (kDebugMode) {
+      print("$tag $value\n");
     }
   }
 }

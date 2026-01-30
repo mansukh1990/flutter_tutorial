@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/screens/dio_home_screen.dart';
+import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/screens/dio_home_screen_list.dart';
 
 void main() {
   runApp(Diomain());
@@ -36,7 +36,8 @@ class _DiomainState extends State<Diomain> with SingleTickerProviderStateMixin {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DioHomeScreen(),
+      home: DioHomeScreenList(),
+      //DioHomeScreen(),
     );
   }
 }

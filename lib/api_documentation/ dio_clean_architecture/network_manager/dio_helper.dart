@@ -11,10 +11,9 @@ class DioHelper {
     receiveTimeout: Duration(seconds: 30),
   );
 
-  Map<String, dynamic> headers = {"isAuthRequired ": "Bearer token"};
+  Map<String, dynamic> headers = {"Authorization": "Bearer token"};
 
   //GET API
-
   Future<dynamic> get({
     required String url,
     bool isAuthRequired = false,
@@ -23,10 +22,10 @@ class DioHelper {
       options.headers = headers;
     }
     try {
-      Response response = await dio.get(url, options: options);
+      final Response response = await dio.get(url, options: options);
       return response.data;
-    } catch (error) {
-      return null;
+    } on DioException catch (e) {
+      throw Exception(e.response?.data ?? e.message ?? "API Error");
     }
   }
 
@@ -40,12 +39,12 @@ class DioHelper {
       options.headers = headers;
     }
     try {
-      Response response;
-      if (requestBody == null) {
-        response = await dio.post(url, options: options);
-      } else {
-        response = await dio.post(url, data: requestBody, options: options);
-      }
+      Response response = await dio.post(
+        url,
+        data: requestBody,
+        options: options,
+      );
+      return response.data;
     } catch (error) {
       return null;
     }
