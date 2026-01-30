@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/network_manager/api_service_dio.dart';
 
-import '../models/product_list_response.dart';
+import '../models/response/product_list_response.dart';
 
 class DioHomeScreenList extends StatefulWidget {
   const DioHomeScreenList({super.key});

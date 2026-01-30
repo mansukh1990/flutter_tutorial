@@ -1,0 +1,23 @@
+import 'package:dio/dio.dart';
+
+import '../preferences/preference_utils.dart';
+
+class RequestHeaderInterceptor extends InterceptorsWrapper {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    getCustomHeaders().then((customHeaders) {
+      options.headers.addAll(customHeaders);
+      super.onRequest(options, handler);
+    });
+  }
+
+  Future<Map<String, String>> getCustomHeaders() async {
+    //  var customHeaders = {'content-type':  'application/json'};
+    final String accessToken = PreferenceUtils.getToken();
+    // customHeaders.addAll({
+    //   'Authorization': "Bearer $accessToken",
+    // });
+    var customHeaders = {'Authorization': "Bearer $accessToken"};
+    return customHeaders;
+  }
+}

@@ -1,0 +1,47 @@
+
+class RouteName {
+  static const splash = '/splash';
+  static const login = '/login';
+  static const home = '/home';
+  static const mainBottomNavigation = '/mainBottomNavigation';
+  static const contactUs = '/contactUs';
+  static const addBillingAddress = '/addBillingAddress';
+  static const notificationSetting = '/notificationSetting';
+  static const addAddress = '/addAddress';
+  static const profile = '/profile';
+  static const notification = '/notification';
+  static const primaryInvoiceList = '/primaryInvoiceList';
+  static const primaryInvoice = '/primaryInvoice';
+  static const primaryOverdueInvoice = '/primaryOverdueInvoice';
+  static const primaryOverdueInvoiceDetails = '/primaryOverdueInvoiceDetails';
+  static const address = '/address';
+  static const lastMileInvoice = '/lastMileInvoice';
+  static const inquiryDetails = '/NewInquiryDetails';
+  static const liveTripsDetails = '/LiveTripsDetails';
+  static const viewPodList = '/ViewPodLIst';
+  static const appPermission = '/AppPermissionScreen';
+  static const billingAddressList = '/billingAddressList';
+  static const billingAddressSelection = '/billingAddressSelection';
+  static const generateLRList = '/GenerateLRList';
+  static const timeLineList = '/TimeLineList';
+  static const completedTripsDetails = '/CompletedTripsDetails';
+  static const cancelTripsDetails = '/CancelTripsDetails';
+  static const fullScreenImageView = '/fullScreenImageView';
+  static const lastMileMISReports = '/lastMileMISReports';
+  static const lastMileTrips = '/lastMileTrips';
+  static const lastMileLiveTripsDetail = '/lastMileLiveTripsDetail';
+  static const addressSelection = '/addressSelection';
+  static const warehouseInquiryDetailScreen = '/warehouseInquiryDetailScreen';
+  static const createInbound = '/CreateInbound';
+  static const lastMileNewInquiryTripsDetail = '/lastMileNewInquiryTripsDetail';
+  static const viewInbound = '/viewInbound';
+  static const viewOutbound = '/viewOutbound';
+  static const viewReturnOutbound = '/viewReturnOutbound';
+  static const createOutbound = '/CreateOutbound';
+  static const editInbound = '/EditInbound';
+  static const editOutbound = '/EditOutbound';
+  static const newInquiry = '/NewInquiryScreen';
+  static const lastMileMisReportDetails = '/LastMileMISDetailsReport';
+  static const lastMileCompletedTripsDetail = '/lastMileCompletedTripsDetail';
+  static const tripRating = '/tripRating';
+}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/models/response/product_map_list_response.dart';
 
-import '../models/product_map_list_response.dart';
 import '../network_manager/api_service_dio.dart';
 
 class DioHomeScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class DioHomeScreen extends StatefulWidget {
 }
 
 class _DioHomeScreenState extends State<DioHomeScreen> {
-  ProductMapListResponse response = ProductMapListResponse();
+  late ProductMapListResponse response;
   bool isLoading = true;
 
   getData() async {
@@ -47,16 +47,16 @@ class _DioHomeScreenState extends State<DioHomeScreen> {
           isLoading
               ? Center(child: CircularProgressIndicator(color: Colors.blue))
               : ListView.builder(
-                itemCount: response.products?.length,
+                itemCount: response.products.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        response.products![index].thumbnail! ?? "",
+                        response.products[index].thumbnail! ?? "",
                       ),
                     ),
-                    title: Text(response.products?[index].id.toString() ?? ""),
-                    subtitle: Text(response.products?[index].title ?? ""),
+                    title: Text(response.products[index].id.toString() ?? ""),
+                    subtitle: Text(response.products[index].title ?? ""),
                   );
                 },
               ),
