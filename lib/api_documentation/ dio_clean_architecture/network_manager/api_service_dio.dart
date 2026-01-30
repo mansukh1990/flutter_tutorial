@@ -28,4 +28,24 @@ class ApiServicesDio {
       throw Exception("Product API Error: $e");
     }
   }
+
+  //without model
+  Future<dynamic> getMapProductWithoutModelList() async {
+    Map<String, dynamic> response = await _dioHelper.get(
+      url: "https://dummyjson.com/products",
+    );
+    return response;
+  }
+
+  //without model
+  Future<dynamic> getProductWithoutModelList() async {
+    try {
+      List<dynamic> response = await _dioHelper.get(
+        url: "https://api.escuelajs.co/api/v1/products",
+      );
+      return response;
+    } catch (e) {
+      throw Exception("Product API Error: $e");
+    }
+  }
 }
