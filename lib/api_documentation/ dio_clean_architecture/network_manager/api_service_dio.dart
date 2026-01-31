@@ -1,17 +1,16 @@
-import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/models/response/product_map_list_response.dart'
-    show ProductMapListResponse;
 import 'package:flutter_tutorial/api_documentation/%20dio_clean_architecture/network_manager/dio_helper.dart';
 
+import '../models/response/ProductMapListResponse.dart';
 import '../models/response/product_list_response.dart';
 
 class ApiServicesDio {
   static final DioHelper _dioHelper = DioHelper();
 
-  Future<ProductMapListResponse> getMapProductList() async {
+  Future<ProductMapListNewResponse> getMapProductList() async {
     final response = await _dioHelper.get(
       url: "https://dummyjson.com/products",
     );
-    return ProductMapListResponse.fromJson(response);
+    return ProductMapListNewResponse.fromJson(response);
   }
 
   Future<List<ProductListDioResponse>> getProductList() async {
